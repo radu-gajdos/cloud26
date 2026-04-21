@@ -12,9 +12,11 @@ FROM eclipse-temurin:17-jre-jammy
 
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+
 COPY --from=build /build/target/*.jar app.jar
 
 RUN useradd -m developer
 USER developer
 
-CMD ["java", "-jar", "application.jar"]
+CMD ["java", "-jar", "app.jar"]
